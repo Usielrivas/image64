@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image64 - Codificador de imágenes a base64</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon-32x32.png">
+    <style>
+    .full {
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+    <!--  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 bg-dark">
+                <h1 class="mt-3"><span class="bg-primary px-2">I</span><span class="text-white">mage64</span></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-6">
+                <h2 class="mt-2">Convertidor de imágenes a base64</h2>
+                <input type="file" id="file" class="d-none">
+                <!--  -->
+                <h4 class="text-primary">¿Cómo usar Image64?</h4>
+                <ul>
+                    <li>Haz click en subir imagen</li>
+                    <li>Espera que cargue la imagen y aparezca el código en el recuadro</li>
+                    <li>Copia el código del recuadro y listo</li>
+                    <li>Para convertir otra imagen, solo vuelve a hacer click en subir</li>
+                </ul>
+                <button id="subir" class="btn btn-primary full mt-3">Subir Imagen</button>
+                <textarea id="result" class="full mt-3" rows="6" placeholder="Aqui estara el código de tu imagen en base64"></textarea>
+                <button class="full btn btn-success" data-clipboard-target="#result"id="copiar">Copiar</button>
+            </div>
+            <div class="col-lg-5 col-md-4 mt-2">
+                <h3>¿Cómo funciona Image64?</h3>
+                <p>Image64 es una herramienta gratuita 
+                de conversión de imágenes a base64 basada
+                en javascript. Esto quiere decir que las imágenes
+                que subas no serán procesadas en un servidor, más bien
+                el proceso de conversión se realizará en su navegador.
+                Por ello es muy importante que utilice las versiones más 
+                recientes de Mozilla Firefox, Chrome, edge o su navegador de preferencia
+                </p>
+                <h3>
+                ¿Por qué y Dónde usar imágenes en base64?
+                </h3>
+                <p>
+                    Las imágenes en base64 se utilizan en sitios web,
+                    pero Ojo!: solo para ciertas aplicaciones como logos
+                    y pequeñas imágenes. También son utilizadas en plantillas
+                    html para correos, iconos de extensiones y otras aplicaciones.
+                    El código base64 presenta la ventaja de hacer que  cargue un poco
+                    más rápido un sitio web, pues para cargar la imagen no se realizará
+                    ninguna petición al servidor, ya que estará en el propio
+                    código html o css. Imagina, tu sitio web necesita cargar 5
+                    imágenes de 1kb; esto significa que se realizarán 5 peticiones al
+                    servidor, entre más peticiones realiza tu sitio web al servidor,
+                    más lento cargará tu sitio web.
+                </p>
+                <p>
+                    Pero aqui la solucion de usar imágenes en base64, puedes ahorrarte
+                    esas 5 peticiones al servidor y agregar la imagenes en linea en el propio html.
+                    Gracias a base64 tu sitio cargará más rápido ahorrando peticiones al servidor.
+                    Claro, para imágenes de presentación con excelente definición no es recomendable
+                    usar base64. Espero que esta aplicación te sea de utilidad.
+                </p>
+                <h3>
+                    Más de image64
+                </h3>
+                <p>
+                    Image64 es una aplicación gratuita para convertir todo tipo de imágenes al formato de base64. No hay límite de conversiones por día.
+                </p>
+            </div>
+        </div>
+        <footer class="row">
+            <div class="col-12 bg-dark pt-2">
+                <p class="text-white text-center">2021 Image64</p>
+            </div>
+        </footer>
+    </div>
+
+      <script>
+      function data64(){
+          var input= document.getElementById("file").files[0];
+          let reader= new FileReader;
+          reader.readAsDataURL(input);
+
+          reader.onload= function(){
+              var data= reader.result;
+              document.getElementById("result").value= data;
+          }
+      }
+    document.getElementById("file").addEventListener("change",data64);
+    document.getElementById("subir").addEventListener("click",function(){
+        document.getElementById("file").click();
+    })
+    function normal(){
+        document.getElementById("copiar").innerHTML="Copiar";
+    }
+    document.getElementById("copiar").addEventListener("click",function(){
+        document.getElementById("copiar").innerHTML="Copiado!";
+        window.setTimeout(normal,1500);
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+ <script>
+        new ClipboardJS('.btn');
+   </script>
+</body>
+</html>
